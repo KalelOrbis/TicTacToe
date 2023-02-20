@@ -1,13 +1,27 @@
 import { useState } from "react";
 import { IUser } from "../types/types";
-
+import Axios from "axios";
+import Cookies from "universal-cookie";
 export const SignUp = () => {
+  const cookies = new Cookies();
   const [user, setUser] = useState<IUser>({
     firstName: "",
     lastName: "",
+    username: "",
     password: "",
   });
-  const signUp = () => {};
+  const signUp = () => {
+    Axios.post("http://localhost:3001/signup", user).then((res) => {
+      const { token, userId, firstName, lastName, username, hashedPassword } =
+        res.data;
+      cookies.set("token", token);
+      cookies.set("userId", userId);
+      cookies.set("firstName", firstName);
+      cookies.set("lastName", lastName);
+      cookies.set("username", username);
+      cookies.set("hashedPassword", hashedPassword);
+    });
+  };
 
   return (
     <div className="signUp">
@@ -23,6 +37,12 @@ export const SignUp = () => {
         name="Lastname"
         placeholder="Lastname"
         onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+      />
+      <input
+        type="text"
+        name="Username"
+        placeholder="Username"
+        onChange={(e) => setUser({ ...user, username: e.target.value })}
       />
       <input
         type="password"
