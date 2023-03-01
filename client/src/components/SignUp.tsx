@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IUser } from "../types/types";
 import Axios from "axios";
 import Cookies from "universal-cookie";
+
 export const SignUp = () => {
   const cookies = new Cookies();
   const [user, setUser] = useState<IUser>({
