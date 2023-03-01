@@ -14,9 +14,9 @@ function App() {
       .connectUser(
         {
           id: cookies.get("userId"),
+          username: cookies?.get("username"),
           firstName: cookies.get("firstName"),
           lastName: cookies.get("lastName"),
-          username: cookies.get("username"),
           hashedPassword: cookies.get("hashedPassword"),
         },
         token
